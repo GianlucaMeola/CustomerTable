@@ -1,0 +1,9 @@
+thead{
+    color: #337AB7
+}
+thead>tr>th {
+    cursor: pointer;
+}
+.counter{
+    cursor: default;
+}

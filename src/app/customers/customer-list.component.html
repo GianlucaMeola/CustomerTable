@@ -1,0 +1,53 @@
+<div class='card'>
+    <div class='card-header'>
+        {{pageTitle}}
+    </div>
+    <div class='card-body'>
+        <div class='row'>
+            <div class='col-sm-3'>Filter by Name and Email:</div>
+            <div class='col-sm-4'>
+                <input type='text' 
+                    [(ngModel)] = 'listFilter'
+                />
+            </div>
+        </div>
+        <div class="row">
+            <div class='col-sm-6'>
+                <h4>Filtered by: {{listFilter}} </h4>
+            </div>
+        </div>
+        <div class='table-responsive'>
+            <table class='table' *ngIf = 'customers && customers.length' >
+                <thead>
+                    <tr>
+                        <th (click)="sort('customerId')">
+                            <span class="glyphicon sort-icon" *ngIf="key =='customerId'" [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                            Customer Id
+                        </th>
+                        <th (click)="sort('customerName')">
+                            <span class="glyphicon sort-icon" *ngIf="key =='customerName'" [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                            Customer Name
+                        </th>
+                        <th (click)="sort('customerEmail')">
+                            <span class="glyphicon sort-icon" *ngIf="key =='customerEmail'" [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                            Customer Email
+                        </th>
+                        <th (click)="sort('phoneNumber')">
+                        <span class="glyphicon sort-icon" *ngIf="key =='phoneNumber'" [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                            Customer Phone Number
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor='let customer of filteredcustomers | orderBy: key : reverse | paginate: { itemsPerPage: 15, currentPage: p };'>
+                        <td>{{customer.customerId}}</td>
+                        <td>{{customer.customerName}}</td>
+                        <td>{{customer.customerEmail}}</td>
+                        <td>{{customer.phoneNumber}}</td>  
+                    </tr>
+                </tbody>
+                <pagination-controls (pageChange)="p = $event"></pagination-controls>
+            </table>
+        </div>
+    </div>
+</div>
